@@ -19,7 +19,7 @@ import nodeListToArray from "./utils/nodeListToArray";
 import { generateUUID } from "./utils/uuid";
 
 /* CSS */
-import "./index.scss";
+import "./sass/index.scss";
 import { generateTooltipStyle } from "./decorators/styler";
 
 @staticMethods
