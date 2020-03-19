@@ -1,0 +1,75 @@
+@mixin type($background-color, $arrow-color) {
+  background-color: $background-color;
+  &.place-top {
+    &:after {
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      bottom: -6px;
+      left: 50%;
+      margin-left: -8px;
+      border-top-color: $arrow-color;
+      border-top-style: solid;
+      border-top-width: 6px;
+    }
+  }
+  &.place-bottom {
+    &:after {
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      top: -6px;
+      left: 50%;
+      margin-left: -8px;
+      border-bottom-color: $arrow-color;
+      border-bottom-style: solid;
+      border-bottom-width: 6px;
+    }
+  }
+  &.place-left {
+    &:after {
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      right: -6px;
+      top: 50%;
+      margin-top: -4px;
+      border-left-color: $arrow-color;
+      border-left-style: solid;
+      border-left-width: 6px;
+    }
+  }
+  &.place-right {
+    &:after {
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      left: -6px;
+      top: 50%;
+      margin-top: -4px;
+      border-right-color: $arrow-color;
+      border-right-style: solid;
+      border-right-width: 6px;
+    }
+  }
+}
+
+@mixin border($border-color) {
+  border: 1px solid $border-color;
+  &.place-top {
+    &:before {
+      border-top: 8px solid $border-color;
+    }
+  }
+  &.place-bottom {
+    &:before {
+      border-bottom: 8px solid $border-color;
+    }
+  }
+  &.place-left {
+    &:before {
+      border-left: 8px solid $border-color;
+    }
+  }
+  &.place-right {
+    &:before {
+      border-right: 8px solid $border-color;
+    }
+  }
+}

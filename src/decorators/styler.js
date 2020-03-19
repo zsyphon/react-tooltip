@@ -1,10 +1,10 @@
 import { getDefaultPopupColors } from "./defaultStyles";
 
 /**
-* Generates the specific tooltip style for use on render.
-*/
+ * Generates the specific tooltip style for use on render.
+ */
 export function generateTooltipStyle(uuid, customColors, type, hasBorder) {
-	return generateStyle(uuid, getPopupColors(customColors, type, hasBorder));
+  return generateStyle(uuid, getPopupColors(customColors, type, hasBorder));
 }
 
 /**
@@ -16,6 +16,9 @@ function generateStyle(uuid, colors) {
   const borderColor = colors.border;
   const arrowColor = colors.arrow;
 
+  // const bodyStyles = document.body.style;
+  // bodyStyles.setProperty('--text-color', 'white');
+  // bodyStyles.setProperty('--background-color', 'black');
   return `
   	.${uuid} {
 	    color: ${textColor};
@@ -97,7 +100,9 @@ function getPopupColors(customColors, type, hasBorder) {
   const textColor = customColors.text;
   const backgroundColor = customColors.background;
   const borderColor = customColors.border;
-  const arrowColor = customColors.arrow ? customColors.arrow : customColors.background;
+  const arrowColor = customColors.arrow
+    ? customColors.arrow
+    : customColors.background;
 
   const colors = getDefaultPopupColors(type);
 
@@ -113,7 +118,7 @@ function getPopupColors(customColors, type, hasBorder) {
     if (borderColor) {
       colors.border = borderColor;
     } else {
-      colors.border = (type === "light" ? "black" : "white");
+      colors.border = type === "light" ? "black" : "white";
     }
   }
 

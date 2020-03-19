@@ -398,60 +398,68 @@ class ReactTooltip extends React.Component {
 
     const target = e.currentTarget;
 
-    const reshowDelay = this.state.show ? (target.getAttribute("data-delay-update") || this.props.delayUpdate) : 0;
+    const reshowDelay = this.state.show
+      ? target.getAttribute("data-delay-update") || this.props.delayUpdate
+      : 0;
 
     const self = this;
 
     const updateState = function updateState() {
-      self.setState({
+      self.setState(
+        {
           originTooltip: originTooltip,
           isMultiline: isMultiline,
           desiredPlace: desiredPlace,
           place: place,
-          type: target.getAttribute("data-type") ||
-            self.props.type ||
-            "dark",
+          type: target.getAttribute("data-type") || self.props.type || "dark",
           customColors: {
-            text: target.getAttribute("data-text-color") ||
+            text:
+              target.getAttribute("data-text-color") ||
               self.props.textColor ||
               null,
-            background: target.getAttribute("data-background-color") ||
+            background:
+              target.getAttribute("data-background-color") ||
               self.props.backgroundColor ||
               null,
-            border: target.getAttribute("data-border-color") ||
+            border:
+              target.getAttribute("data-border-color") ||
               self.props.borderColor ||
               null,
-            arrow: target.getAttribute("data-arrow-color") ||
+            arrow:
+              target.getAttribute("data-arrow-color") ||
               self.props.arrowColor ||
               null
           },
           effect: effect,
           offset: offset,
-          html: (target.getAttribute("data-html") ? target.getAttribute("data-html") === "true" : self.props.html) ||
-            false,
-          delayShow: target.getAttribute("data-delay-show") ||
-            self.props.delayShow ||
-            0,
-          delayHide: target.getAttribute("data-delay-hide") ||
-            self.props.delayHide ||
-            0,
-          delayUpdate: target.getAttribute("data-delay-update") ||
+          html:
+            (target.getAttribute("data-html")
+              ? target.getAttribute("data-html") === "true"
+              : self.props.html) || false,
+          delayShow:
+            target.getAttribute("data-delay-show") || self.props.delayShow || 0,
+          delayHide:
+            target.getAttribute("data-delay-hide") || self.props.delayHide || 0,
+          delayUpdate:
+            target.getAttribute("data-delay-update") ||
             self.props.delayUpdate ||
             0,
-          border: (target.getAttribute("data-border") ?
-            target.getAttribute("data-border") === "true" :
-            self.props.border) ||
-            false,
-          extraClass: target.getAttribute("data-class") ||
+          border:
+            (target.getAttribute("data-border")
+              ? target.getAttribute("data-border") === "true"
+              : self.props.border) || false,
+          extraClass:
+            target.getAttribute("data-class") ||
             self.props.class ||
             self.props.className ||
             "",
-          disable: (target.getAttribute("data-tip-disable") ?
-            target.getAttribute("data-tip-disable") === "true" :
-            self.props.disable) ||
-            false,
+          disable:
+            (target.getAttribute("data-tip-disable")
+              ? target.getAttribute("data-tip-disable") === "true"
+              : self.props.disable) || false,
           currentTarget: target
-        }, () => {
+        },
+        () => {
           if (scrollHide) {
             self.addScrollListener(self.state.currentTarget);
           }
@@ -462,7 +470,12 @@ class ReactTooltip extends React.Component {
             self.intervalUpdateContent = setInterval(() => {
               if (self.mount) {
                 const { getContent } = self.props;
-                const placeholder = getTipContent(originTooltip, "", getContent[0](), isMultiline);
+                const placeholder = getTipContent(
+                  originTooltip,
+                  "",
+                  getContent[0](),
+                  isMultiline
+                );
                 const isEmptyTip = self.isEmptyTip(placeholder);
                 self.setState({ isEmptyTip });
                 self.updatePosition();
@@ -502,13 +515,18 @@ class ReactTooltip extends React.Component {
     }
 
     const updateState = () => {
-      if ((Array.isArray(placeholder) && placeholder.length > 0) || placeholder) {
+      if (
+        (Array.isArray(placeholder) && placeholder.length > 0) ||
+        placeholder
+      ) {
         const isInvisible = !this.state.show;
-        this.setState({
+        this.setState(
+          {
             currentEvent: e,
             currentTarget: eventTarget,
             show: true
-          }, () => {
+          },
+          () => {
             this.updatePosition();
             if (isInvisible && afterShow) {
               afterShow(e);
@@ -666,8 +684,10 @@ class ReactTooltip extends React.Component {
 
   hasCustomColors() {
     return Boolean(
-      Object.keys(this.state.customColors).find(color => color !== "border" && this.state.customColors[color]) ||
-      (this.state.border && this.state.customColors["border"])
+      Object.keys(this.state.customColors).find(
+        color => color !== "border" && this.state.customColors[color]
+      ) ||
+        (this.state.border && this.state.customColors["border"])
     );
   }
 
@@ -675,7 +695,11 @@ class ReactTooltip extends React.Component {
     const { extraClass, html, ariaProps, disable } = this.state;
     const content = this.getTooltipContent();
     const isEmptyTip = this.isEmptyTip(content);
-    const style = generateTooltipStyle(this.state.uuid, this.state.customColors, this.state.type, this.state.border);
+    // const style = generateTooltipStyle(this.state.uuid, this.state.customColors, this.state.type, this.state.border);
+
+    // const bodyStyles = document.body.style;
+    // bodyStyles.setProperty('--text-color', 'white');
+    // bodyStyles.setProperty('--background-color', 'black');
 
     const tooltipClass =
       "__react_component_tooltip" +
@@ -683,7 +707,7 @@ class ReactTooltip extends React.Component {
       (this.state.show && !disable && !isEmptyTip ? " show" : "") +
       (this.state.border ? " border" : "") +
       ` place-${this.state.place}` + // top, bottom, left, right
-      ` type-${(this.hasCustomColors() ? "custom" : this.state.type)}` + // dark, success, warning, error, info, light, custom
+      ` type-${this.hasCustomColors() ? "custom" : this.state.type}` + // dark, success, warning, error, info, light, custom
       (this.props.delayUpdate ? " allow_hover" : "") +
       (this.props.clickable ? " allow_click" : "");
 
@@ -693,10 +717,12 @@ class ReactTooltip extends React.Component {
       Wrapper = ReactTooltip.defaultProps.wrapper;
     }
 
-    const wrapperClassName = [tooltipClass, extraClass].filter(Boolean).join(" ");
+    const wrapperClassName = [tooltipClass, extraClass]
+      .filter(Boolean)
+      .join(" ");
 
     if (html) {
-      const htmlContent = `${content}\n<style>${style}</style>`;
+      // const htmlContent = `${content}\n<style>${style}</style>`;
 
       return (
         <Wrapper
@@ -705,7 +731,7 @@ class ReactTooltip extends React.Component {
           ref={ref => (this.tooltipRef = ref)}
           {...ariaProps}
           data-id="tooltip"
-          dangerouslySetInnerHTML={{ __html: htmlContent }}
+          dangerouslySetInnerHTML={{ __html: content }}
         />
       );
     } else {
@@ -717,7 +743,6 @@ class ReactTooltip extends React.Component {
           ref={ref => (this.tooltipRef = ref)}
           data-id="tooltip"
         >
-          <style dangerouslySetInnerHTML={{ __html: style }} />
           {content}
         </Wrapper>
       );
